@@ -1,1 +1,2 @@
 # SocketAIDLDemo
+基于socket和aidl的简单通信demo
