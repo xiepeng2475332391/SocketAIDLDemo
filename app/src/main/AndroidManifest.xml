@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.socketaidldemo">
+
+    <application
+        android:name=".application.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.SocketClientActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.SocketServerActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|fontScale"
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name=".service.SocketServerService"
+            android:persistent="true"
+            android:process=":server">
+            <intent-filter android:priority="1000">
+                <action android:name="com.example.socketaidldemo.service.SocketServerService" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".service.SocketClientService"
+            android:persistent="true"
+            android:process=":client">
+            <intent-filter android:priority="1000">
+                <action android:name="com.example.socketaidldemo.service.SocketClientService" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name=".receiver.SocketSystemReceiver"
+            android:process=":client">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>
